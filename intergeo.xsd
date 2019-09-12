@@ -1,0 +1,1498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:intergeo="http://svn.activemath.org/intergeo/Format/xml"
+    targetNamespace="http://svn.activemath.org/intergeo/Format/xml"
+    elementFormDefault="qualified" 
+    attributeFormDefault="unqualified"> 
+  <xs:element name="construction">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="elements"/>
+	<xs:element ref="constraints"/>
+	<xs:element ref="display" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="elements">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+	<xs:element ref="point"/>
+	<xs:element ref="line"/>
+	<xs:element ref="line_segment"/>
+	<xs:element ref="directed_line_segment"/>
+	<xs:element ref="ray"/>
+	<xs:element ref="polygon"/>
+	<xs:element ref="vector"/>
+	<xs:element ref="circle"/>
+	<xs:element ref="conic"/>
+	<xs:element ref="parabola"/>
+	<xs:element ref="ellipse"/>
+	<xs:element ref="hyperbola"/>
+	<xs:element ref="locus"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="constraints">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+	<xs:element ref="free_point"/>
+	<xs:element ref="point_on_line"/>
+	<xs:element ref="point_on_line_segment"/>
+	<xs:element ref="point_on_circle"/>
+	<xs:element ref="line_through_point"/>
+	<xs:element ref="line_through_two_points"/>
+	<xs:element ref="line_angular_bisector_of_three_points"/>
+	<xs:element ref="line_angular_bisectors_of_two_lines"/>
+	<xs:element ref="line_segment_by_points"/>
+	<xs:element ref="directed_line_segment_by_points"/>
+	<xs:element ref="ray_from_point_and_vector"/>
+	<xs:element ref="ray_from_point_through_point"/>
+	<xs:element ref="polygon_by_vertices"/>
+	<xs:element ref="vector_from_point_to_point"/>
+	<xs:element ref="line_parallel_to_line_through_point"/>
+	<xs:element ref="line_perpendicular_to_line_through_point"/>
+	<xs:element ref="point_intersection_of_two_lines"/>
+	<xs:element ref="midpoint_of_two_points"/>
+	<xs:element ref="endpoints_of_line_segment"/>
+	<xs:element ref="midpoint_of_line_segment"/>
+	<xs:element ref="carrying_line_of_line_segment"/>
+	<xs:element ref="starting_point_of_directed_line_segment"/>
+	<xs:element ref="end_point_of_directed_line_segment"/>
+	<xs:element ref="line_segment_of_directed_line_segment"/>
+	<xs:element ref="vector_of_ray"/>
+	<xs:element ref="starting_point_of_ray"/>
+	<xs:element ref="carrying_line_of_ray"/>
+	<xs:element ref="circle_by_center_and_radius"/>
+	<xs:element ref="circle_by_center_and_point"/>
+	<xs:element ref="circle_by_three_points"/>
+	<xs:element ref="intersection_points_of_two_circles"/>
+	<xs:element ref="other_intersection_point_of_two_circles"/>
+	<xs:element ref="intersection_points_of_circle_and_line"/>
+	<xs:element ref="other_intersection_point_of_circle_and_line"/>
+	<xs:element ref="intersection_points_of_two_conics"/>
+	<xs:element ref="intersection_points_of_conic_and_line"/>
+	<xs:element ref="other_intersection_point_of_conic_and_line"/>
+	<xs:element ref="circle_tangent_lines_by_point"/>
+	<xs:element ref="foci_of_conic"/>
+	<xs:element ref="center_of_circle"/>
+	<xs:element ref="locus_defined_by_point_on_line"/>
+	<xs:element ref="locus_defined_by_point_on_line_segment"/>
+	<xs:element ref="locus_defined_by_point_on_circle"/>
+	<xs:element ref="locus_defined_by_point_on_locus"/>
+	<xs:element ref="locus_defined_by_line_through_point"/>
+	<xs:element ref="symmetry_by_point"/>
+	<xs:element ref="symmetry_by_line"/>
+	<xs:element ref="symmetry_by_circle"/>
+	<xs:element ref="translate"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="display">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+	<xs:choice>
+	  <xs:element ref="background-color"/>
+	  <xs:element name="style">
+	    <xs:complexType>
+	      <xs:choice minOccurs="0" maxOccurs="unbounded">
+		<xs:element ref="stroke"/>
+		<xs:element ref="stroke-width"/>
+		<xs:element ref="stroke-dasharray"/>
+		<xs:element ref="borderwidth"/>
+		<xs:element ref="border-opacity"/>
+		<xs:element ref="fill"/>
+		<xs:element ref="fill-opacity"/>
+		<xs:element ref="point-size"/>
+		<xs:element ref="point-style"/>
+		<xs:element ref="label"/>
+		<xs:element ref="visible"/>
+		<xs:element ref="fixed"/>
+	      </xs:choice>
+	      <xs:attribute name="ref" type="xs:Name" use="required"/>
+	    </xs:complexType>
+	  </xs:element>
+	</xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="point">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point_coordinates"/>
+      </xs:sequence>
+      <xs:attribute type="xs:Name" use="required" name="id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="point-ref">
+    <xs:sequence>
+      <xs:element name="point">
+	<xs:complexType mixed="true"/>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="point-out-ref">
+    <xs:sequence>
+      <xs:element name="point">
+	<xs:complexType mixed="true">
+	  <xs:attribute name="out" fixed="true"/>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="line">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="homogeneous_coordinates"/>
+      </xs:sequence>
+      <xs:attribute type="xs:Name" use="required" name="id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="line-ref">
+    <xs:sequence>
+      <xs:element name="line">
+	<xs:complexType mixed="true"/>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="line-out-ref">
+    <xs:sequence>
+      <xs:element name="line">
+	<xs:complexType mixed="true">
+	  <xs:attribute name="out" fixed="true"/>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="line_segment">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point_coordinates"/>
+	<xs:group ref="point_coordinates"/>
+	<xs:sequence minOccurs="0">
+	  
+	  <xs:group ref="point_coordinates"/>
+	</xs:sequence>
+      </xs:sequence>
+      <xs:attribute type="xs:Name" use="required" name="id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="line_segment-ref">
+    <xs:sequence>
+      <xs:element name="line_segment">
+	<xs:complexType mixed="true"/>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="line_segment-out-ref">
+    <xs:sequence>
+      <xs:element name="line_segment">
+	<xs:complexType mixed="true">
+	  <xs:attribute name="out" fixed="true"/>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="directed_line_segment">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point_coordinates"/>
+	<xs:group ref="point_coordinates"/>
+	<xs:sequence minOccurs="0">
+	  
+	  <xs:group ref="point_coordinates"/>
+	</xs:sequence>
+      </xs:sequence>
+      <xs:attribute type="xs:Name" use="required" name="id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="directed_line_segment-ref">
+    <xs:sequence>
+      <xs:element name="directed_line_segment">
+	<xs:complexType mixed="true"/>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="directed_line_segment-out-ref">
+    <xs:sequence>
+      <xs:element name="directed_line_segment">
+	<xs:complexType mixed="true">
+	  <xs:attribute name="out" fixed="true"/>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="ray">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point_coordinates"/>
+	<xs:group ref="direction_or_point_coordinates"/>
+      </xs:sequence>
+      <xs:attribute type="xs:Name" use="required" name="id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="ray-ref">
+    <xs:sequence>
+      <xs:element name="ray">
+	<xs:complexType mixed="true"/>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="ray-out-ref">
+    <xs:sequence>
+      <xs:element name="ray">
+	<xs:complexType mixed="true">
+	  <xs:attribute name="out" fixed="true"/>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="polygon">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="list_of_vertices_coordinates"/>
+      </xs:sequence>
+      <xs:attribute type="xs:Name" use="required" name="id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="polygon-ref">
+    <xs:sequence>
+      <xs:element name="polygon">
+	<xs:complexType mixed="true"/>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="polygon-out-ref">
+    <xs:sequence>
+      <xs:element name="polygon">
+	<xs:complexType mixed="true">
+	  <xs:attribute name="out" fixed="true"/>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="vector">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point_coordinates"/>
+      </xs:sequence>
+      <xs:attribute type="xs:Name" use="required" name="id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="vector-ref">
+    <xs:sequence>
+      <xs:element name="vector">
+	<xs:complexType mixed="true"/>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="vector-out-ref">
+    <xs:sequence>
+      <xs:element name="vector">
+	<xs:complexType mixed="true">
+	  <xs:attribute name="out" fixed="true"/>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="circle">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="matrix"/>
+	<xs:sequence minOccurs="0">
+	  <xs:element ref="matrix"/>
+	</xs:sequence>
+      </xs:sequence>
+      <xs:attribute type="xs:Name" use="required" name="id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="circle-ref">
+    <xs:sequence>
+      <xs:element name="circle">
+	<xs:complexType mixed="true"/>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="circle-out-ref">
+    <xs:sequence>
+      <xs:element name="circle">
+	<xs:complexType mixed="true">
+	  <xs:attribute name="out" fixed="true"/>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="conic">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="matrix"/>
+	<xs:sequence minOccurs="0">
+	  <xs:element ref="matrix"/>
+	</xs:sequence>
+      </xs:sequence>
+      <xs:attribute type="xs:Name" use="required" name="id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="conic-ref">
+    <xs:sequence>
+      <xs:element name="conic">
+	<xs:complexType mixed="true"/>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="conic-out-ref">
+    <xs:sequence>
+      <xs:element name="conic">
+	<xs:complexType mixed="true">
+	  <xs:attribute name="out" fixed="true"/>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="parabola">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="matrix"/>
+	<xs:sequence minOccurs="0">
+	  <xs:element ref="matrix"/>
+	</xs:sequence>
+      </xs:sequence>
+      <xs:attribute type="xs:Name" use="required" name="id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="parabola-ref">
+    <xs:sequence>
+      <xs:element name="parabola">
+	<xs:complexType mixed="true"/>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="parabola-out-ref">
+    <xs:sequence>
+      <xs:element name="parabola">
+	<xs:complexType mixed="true">
+	  <xs:attribute name="out" fixed="true"/>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="ellipse">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="matrix"/>
+	<xs:sequence minOccurs="0">
+	  <xs:element ref="matrix"/>
+	</xs:sequence>
+      </xs:sequence>
+      <xs:attribute type="xs:Name" use="required" name="id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="ellipse-ref">
+    <xs:sequence>
+      <xs:element name="ellipse">
+	<xs:complexType mixed="true"/>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="ellipse-out-ref">
+    <xs:sequence>
+      <xs:element name="ellipse">
+	<xs:complexType mixed="true">
+	  <xs:attribute name="out" fixed="true"/>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="hyperbola">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="matrix"/>
+	<xs:sequence minOccurs="0">
+	  <xs:element ref="matrix"/>
+	</xs:sequence>
+      </xs:sequence>
+      <xs:attribute type="xs:Name" use="required" name="id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="hyperbola-ref">
+    <xs:sequence>
+      <xs:element name="hyperbola">
+	<xs:complexType mixed="true"/>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="hyperbola-out-ref">
+    <xs:sequence>
+      <xs:element name="hyperbola">
+	<xs:complexType mixed="true">
+	  <xs:attribute name="out" fixed="true"/>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="locus">
+    <xs:complexType>
+      <xs:attribute type="xs:Name" use="required" name="id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="locus-ref">
+    <xs:sequence>
+      <xs:element name="locus">
+	<xs:complexType mixed="true"/>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="locus-out-ref">
+    <xs:sequence>
+      <xs:element name="locus">
+	<xs:complexType mixed="true">
+	  <xs:attribute name="out" fixed="true"/>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="point_coordinates">
+    <xs:choice>
+      <xs:element ref="homogeneous_coordinates"/>
+      <xs:element ref="euclidean_coordinates"/>
+      <xs:element ref="polar_coordinates"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="scalar">
+    <xs:choice>
+      <xs:element ref="double"/>
+      <xs:element ref="complex"/>
+      <xs:element ref="real"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="direction_or_point_coordinates">
+    <xs:choice>
+      <xs:element ref="direction"/>
+      <xs:group ref="point_coordinates"/>
+    </xs:choice>
+  </xs:group>
+  <xs:element name="homogeneous_coordinates">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="scalar"/>
+	<xs:group ref="scalar"/>
+	<xs:group ref="scalar"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="euclidean_coordinates">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="scalar"/>
+	<xs:group ref="scalar"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="polar_coordinates">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="scalar"/>
+	<xs:group ref="scalar"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="list_of_vertices_coordinates">
+    <xs:complexType>
+      <xs:sequence maxOccurs="unbounded">
+	<xs:group ref="point_coordinates"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="list_of_vertices">
+    <xs:complexType>
+      <xs:sequence maxOccurs="unbounded">
+	<xs:group ref="point-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="matrix">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="scalar"/>
+	<xs:group ref="scalar"/>
+	<xs:group ref="scalar"/>
+	<xs:group ref="scalar"/>
+	<xs:group ref="scalar"/>
+	<xs:group ref="scalar"/>
+	<xs:group ref="scalar"/>
+	<xs:group ref="scalar"/>
+	<xs:group ref="scalar"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="complex">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="double"/>
+	<xs:element ref="double"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="free_point">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="point_on_line">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="line_family-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="point_on_line_segment">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="line_segment-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="point_on_circle">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="circle_family-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="line_through_point">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="line-out-ref"/>
+	<xs:group ref="point-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="line_through_two_points">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="line-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="point-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="line_angular_bisector_of_three_points">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="line-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="point-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="line_angular_bisectors_of_two_lines">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="line-out-ref"/>
+	<xs:group ref="line-out-ref"/>
+	<xs:group ref="line_family-ref"/>
+	<xs:group ref="line_family-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="line_segment_by_points">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="line_segment-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:sequence minOccurs="0" maxOccurs="1">
+	  
+	  <xs:group ref="point-ref"/>
+	</xs:sequence>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="directed_line_segment_by_points">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="directed_line_segment-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:sequence minOccurs="0" maxOccurs="1">
+	  
+	  <xs:group ref="point-ref"/>
+	</xs:sequence>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ray_from_point_and_vector">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="ray-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="vector-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ray_from_point_through_point">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="ray-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="point-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="polygon_by_vertices">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="polygon-out-ref"/>
+	<xs:element ref="list_of_vertices"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="vector_from_point_to_point">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="vector-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="point-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="line_parallel_to_line_through_point">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="line-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="line_family-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="line_perpendicular_to_line_through_point">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="line-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="line_family-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="point_intersection_of_two_lines">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="line_family-extendable-ref"/>
+	<xs:group ref="line_family-extendable-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="midpoint_of_two_points">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="point-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="endpoints_of_line_segment">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="line_segment-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="midpoint_of_line_segment">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="line_segment-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="carrying_line_of_line_segment">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="line-out-ref"/>
+	<xs:group ref="line_segment-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="starting_point_of_directed_line_segment">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="directed_line_segment-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="end_point_of_directed_line_segment">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="directed_line_segment-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="line_segment_of_directed_line_segment">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="line_segment-out-ref"/>
+	<xs:group ref="directed_line_segment-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="vector_of_ray">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="vector-out-ref"/>
+	<xs:group ref="ray-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="starting_point_of_ray">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="ray-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="carrying_line_of_ray">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="line-out-ref"/>
+	<xs:group ref="ray-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="circle_by_center_and_radius">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="circle-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="real"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="circle_by_center_and_point">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="circle-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="point-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="circle_by_three_points">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="circle-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="point-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="intersection_points_of_two_circles">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="circle_family-extendable-ref"/>
+	<xs:group ref="circle_family-extendable-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="other_intersection_point_of_two_circles">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="circle_family-extendable-ref"/>
+	<xs:group ref="circle_family-extendable-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="intersection_points_of_circle_and_line">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="circle_family-extendable-ref"/>
+	<xs:group ref="line_family-extendable-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="other_intersection_point_of_circle_and_line">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="circle_family-extendable-ref"/>
+	<xs:group ref="line_family-extendable-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="intersection_points_of_two_conics">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="conic_family-extendable-ref"/>
+	<xs:group ref="conic_family-extendable-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="intersection_points_of_conic_and_line">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="conic_family-extendable-ref"/>
+	<xs:group ref="line_family-extendable-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="other_intersection_point_of_conic_and_line">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:group ref="point-out-ref"/>
+	<xs:group ref="point-ref"/>
+	<xs:group ref="conic_family-extendable-ref"/>
+	<xs:group ref="line_family-extendable-ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+<xs:element name="circle_tangent_lines_by_point">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:group ref="line-out-ref"/>
+      <xs:group ref="line-out-ref"/>
+      <xs:group ref="circle_family-ref"/>
+      <xs:group ref="point-ref"/>
+    </xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="foci_of_conic">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:group ref="point-out-ref"/>
+      <xs:group ref="point-out-ref"/>
+      <xs:group ref="conic_family-ref"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<xs:element name="center_of_circle">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:group ref="point-out-ref"/>
+      <xs:group ref="circle_family-ref"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<xs:element name="locus_defined_by_point_on_line">
+<xs:complexType>
+  <xs:sequence>
+    <xs:group ref="locus-out-ref"/>
+    <xs:group ref="point-ref"/>
+    <xs:group ref="point-ref"/>
+    <xs:group ref="line-ref"/>
+  </xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="locus_defined_by_point_on_line_segment">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:group ref="locus-out-ref"/>
+      <xs:group ref="point-ref"/>
+      <xs:group ref="point-ref"/>
+      <xs:group ref="line_segment-ref"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<xs:element name="locus_defined_by_point_on_circle">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:group ref="locus-out-ref"/>
+      <xs:group ref="point-ref"/>
+      <xs:group ref="point-ref"/>
+      <xs:group ref="circle-ref"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<xs:element name="locus_defined_by_point_on_locus">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:group ref="locus-out-ref"/>
+      <xs:group ref="point-ref"/>
+      <xs:group ref="point-ref"/>
+      <xs:group ref="locus-ref"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<xs:element name="locus_defined_by_line_through_point">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:group ref="locus-out-ref"/>
+      <xs:group ref="point-ref"/>
+      <xs:group ref="line-ref"/>
+      <xs:group ref="point-ref"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<xs:element name="symmetry_by_point">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:group ref="element_family-out-ref"/>
+      <xs:group ref="element_family-ref"/>
+      <xs:group ref="point-ref"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<xs:element name="symmetry_by_line">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:group ref="element_family-out-ref"/>
+      <xs:group ref="element_family-ref"/>
+      <xs:group ref="line_family-ref"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<xs:element name="symmetry_by_circle">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:group ref="element_family-out-ref"/>
+      <xs:group ref="element_family-ref"/>
+      <xs:group ref="circle_family-ref"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<xs:element name="translate">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:group ref="element_family-out-ref"/>
+      <xs:group ref="element_family-ref"/>
+      <xs:group ref="vector-ref"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<xs:element name="stroke">
+  <xs:simpleType>
+    <xs:restriction base="paint"/>
+  </xs:simpleType>
+</xs:element>
+<xs:element name="stroke-width">
+  <xs:simpleType>
+    <xs:restriction base="length"/>
+  </xs:simpleType>
+</xs:element>
+<xs:element name="stroke-dasharray">
+  <xs:simpleType>
+    <xs:restriction base="boolean"/>
+  </xs:simpleType>
+</xs:element>
+<xs:element name="borderwidth">
+  <xs:simpleType>
+    <xs:restriction base="length"/>
+  </xs:simpleType>
+</xs:element>
+<xs:element name="border-opacity">
+  <xs:simpleType>
+    <xs:restriction base="realBetween0and1"/>
+  </xs:simpleType>
+</xs:element>
+<xs:element name="fill">
+  <xs:simpleType>
+    <xs:restriction base="paint"/>
+  </xs:simpleType>
+</xs:element>
+<xs:element name="fill-opacity">
+  <xs:simpleType>
+    <xs:restriction base="realBetween0and1"/>
+  </xs:simpleType>
+</xs:element>
+<xs:element name="point-size">
+  <xs:simpleType>
+    <xs:restriction base="length"/>
+</xs:simpleType>
+</xs:element>
+<xs:element name="point-style">
+  <xs:simpleType>
+    <xs:restriction base="string"/>
+</xs:simpleType>
+</xs:element>
+<xs:element name="label">
+  <xs:simpleType>
+    <xs:restriction base="string"/>
+  </xs:simpleType>
+</xs:element>
+<xs:element name="visible">
+  <xs:simpleType>
+    <xs:restriction base="boolean"/>
+  </xs:simpleType>
+</xs:element>
+<xs:element name="fixed">
+  <xs:simpleType>
+    <xs:restriction base="boolean"/>
+  </xs:simpleType>
+</xs:element>
+<xs:element name="background-color">
+  <xs:simpleType>
+    <xs:restriction base="paint"/>
+  </xs:simpleType>
+</xs:element>
+<xs:group name="line_family-ref">
+  <xs:choice>
+    <xs:element name="line">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="line_segment">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="directed_line_segment">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="ray">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+  </xs:choice>
+</xs:group>
+<xs:group name="line_family-out-ref">
+  <xs:choice>
+    <xs:element name="line">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="line_segment">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="directed_line_segment">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="ray">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+  </xs:choice>
+</xs:group>
+<xs:group name="line_family-extendable-ref">
+  <xs:choice>
+    <xs:element name="line">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="line_segment">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="directed_line_segment">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="ray">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+  </xs:choice>
+</xs:group>
+<xs:group name="circle_family-ref">
+  <xs:choice>
+    <xs:element name="circle">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="arc">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+  </xs:choice>
+</xs:group>
+<xs:group name="circle_family-out-ref">
+  <xs:choice>
+    <xs:element name="circle">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="arc">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+  </xs:choice>
+</xs:group>
+<xs:group name="circle_family-extendable-ref">
+  <xs:choice>
+    <xs:element name="circle">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="arc">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+  </xs:choice>
+</xs:group>
+<xs:group name="conic_family-ref">
+  <xs:choice>
+    <xs:element name="conic">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="circle">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="arc">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="hyperbola">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="parabola">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="ellipse">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+  </xs:choice>
+</xs:group>
+<xs:group name="conic_family-out-ref">
+  <xs:choice>
+    <xs:element name="conic">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="circle">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="arc">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="hyperbola">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="parabola">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="ellipse">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+  </xs:choice>
+</xs:group>
+<xs:group name="conic_family-extendable-ref">
+  <xs:choice>
+    <xs:element name="conic">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="circle">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="arc">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="hyperbola">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="parabola">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="ellipse">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+  </xs:choice>
+</xs:group>
+<xs:group name="element_family-ref">
+  <xs:choice>
+    <xs:element name="point">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="line">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="line_segment">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="directed_line_segment">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="ray">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="polygon">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="vector">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="circle">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="arc">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="conic">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="parabola">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="hyperbola">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="ellipse">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+    <xs:element name="locus">
+      <xs:complexType mixed="true"/>
+    </xs:element>
+  </xs:choice>
+</xs:group>
+<xs:group name="element_family-out-ref">
+  <xs:choice>
+    <xs:element name="point">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="line">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="line_segment">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="directed_line_segment">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="ray">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="polygon">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="vector">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="circle">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="arc">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="conic">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="parabola">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="hyperbola">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="ellipse">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="locus">
+      <xs:complexType mixed="true">
+	<xs:attribute name="out" fixed="true"/>
+      </xs:complexType>
+    </xs:element>
+  </xs:choice>
+</xs:group>
+<xs:group name="element_family-extendable-ref">
+  <xs:choice>
+    <xs:element name="point">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="line">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="line_segment">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="directed_line_segment">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="ray">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="polygon">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="vector">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="circle">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="arc">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="conic">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="parabola">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="hyperbola">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="ellipse">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="locus">
+      <xs:complexType mixed="true">
+	<xs:attribute name="extended" type="xs:boolean"/>
+      </xs:complexType>
+    </xs:element>
+  </xs:choice>
+</xs:group>
+<xs:complexType name="output-reference">
+  <xs:simpleContent>
+    <xs:extension base="xs:string">
+      <xs:attribute name="out" use="required" fixed="true"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+<xs:complexType name="reference">
+  <xs:simpleContent>
+    <xs:extension base="xs:string"/>
+  </xs:simpleContent>
+</xs:complexType>
+<xs:group name="real">
+  <xs:sequence>
+    <xs:element ref="double"/>
+  </xs:sequence>
+</xs:group>
+<xs:element name="real" type="xs:double"/>
+<xs:group name="complex">
+  <xs:sequence>
+    <xs:element ref="double"/>
+    <xs:element ref="double"/>
+  </xs:sequence>
+</xs:group>
+<xs:element name="double" type="xs:double"/>
+<xs:element name="direction">
+  <xs:complexType>
+    <xs:sequence minOccurs="2" maxOccurs="3">
+      <xs:group ref="scalar"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<xs:simpleType name="paint">
+  <xs:union memberTypes="none-type color"/>
+</xs:simpleType>
+<xs:simpleType name="none-type">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="none"/>
+  </xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="color">
+  <xs:restriction base="xs:string">
+    <xs:pattern value="#[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]"/>
+  </xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="length">
+  <xs:restriction base="xs:double"/>
+</xs:simpleType>
+<xs:simpleType name="boolean">
+  <xs:restriction base="xs:boolean"/>
+</xs:simpleType>
+<xs:simpleType name="string">
+  <xs:restriction base="xs:string"/>
+</xs:simpleType>
+<xs:simpleType name="realBetween0and1">
+  <xs:restriction base="xs:double">
+    <xs:minInclusive value="0.0"/>
+    <xs:maxInclusive value="1.0"/>
+  </xs:restriction>
+</xs:simpleType>
+</xs:schema>

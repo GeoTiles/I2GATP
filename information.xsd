@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ xmlns:i2gatp="http://hilbert.mat.uc.pt/TGTP/I2GATP"
+ xmlns:bibtex="."
+ xmlns:m="http://www.w3.org/1998/Math/MathML"
+ targetNamespace="http://hilbert.mat.uc.pt/TGTP/I2GATP"
+>
+
+  <!-- FALTA AINDA AFINAR A QUESTÃO DA IMPORTAÇÃO DOS ESQUEMAS BiBTeX E MathML -->
+  
+  
+  <xs:import namespace="." 
+	     schemaLocation="bibtexml-handwritten.xsd"
+	     /> 
+  
+  <!-- importing MathML document type --> 
+  <xs:import namespace="http://www.w3.org/1998/Math/MathML" schemaLocation="mathml3.xsd"/> 
+    
+  <!-- i2gatp - information.xsd --> 
+  <xs:annotation>
+    <xs:documentation xml:lang="en"> 
+      XML Schema for Informations. Part of I2GATP format.
+    </xs:documentation> 
+  </xs:annotation>  
+  
+  
+  <!-- definition of simple elements -->
+  <xs:element name="name" type="xs:string" />
+  <xs:element name="description" type="xs:string" />
+  <xs:element name="keyword" type="xs:string" />
+  
+  <!-- definition of complex types -->
+  
+  <!-- 
+       geo_statement, rigorous (textbook like) description (MathML)
+  -->
+  <xs:element name="geoStatement">
+    <xs:complexType>
+      <xs:element ref="mml:math"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- 
+       Bibliographic references (BiBTeXML)
+       citations (0..*) 
+  -->
+  <xs:element name="bibrefs">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="bibtex:entry" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="keywords">
+    <xs:complexType>
+      <xs:element ref="keyword" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:complexType>  
+  </xs:element>
+  
+  <!-- Definition of complex elements -->
+  
+  <!-- information -->
+  <xs:element name="information">
+    <xs:complexType>
+      <xs:all>
+	<xs:element ref="name" minOccurs="0"/>
+	<xs:element ref="description" minOccurs="0" />
+	<xs:element ref="statement" minOccurs="0" />
+	<xs:element ref="bibrefs" minOccurs="0" />
+	<xs:element ref="keywords" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  
+
+
+
+
+
+</xs:schema>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:i2gatp="http://hilbert.mat.uc.pt/TGTP/I2GATP"
+    targetNamespace="http://hilbert.mat.uc.pt/TGTP/I2GATP"
+    elementFormDefault="qualified">
+  
+  <!-- i2gatp - proofInfo.xsd --> 
+  <xs:annotation>
+    <xs:documentation xml:lang="en"> 
+      XML Schema for Proofs Informations. Part of I2GATP format.
+    </xs:documentation> 
+  </xs:annotation>  
+  
+  <!-- definition of simple elements -->
+  
+  <!-- Method used in the proof (Area Method | Wu's Method | Groebner Basis Method | ...) -->
+  <xs:element name="method " type="xs:string" />
+  
+  <!-- proof status, SZS ontology -->
+  <xs:element name="status" type="xs:string" />
+  
+  <!-- maximun CPU time (in seconds) limit imposed to the GATP -->
+  <xs:element name="time_limit_seconds" type="xs:integer" />
+  <!-- maximum RAM (in MiB) space limit imposed to the GATP -->
+  <xs:element name="space_limit_MiB" type="xs:float" />
+  <!-- limit in the number of iterations imposed to the GATP-->
+  <xs:element name="iterations limit" type="xs:integer" />
+  
+  <!-- CPU time, in seconds, used by the GATP-->
+  <xs:element name="CPU_time" type="xs:float" />
+  <!-- RAM spaced used, in MiB, used by the GATP-->
+  <xs:element name="RAM_spaced_used" type="xs:float" />
+  <!-- number of elimination steps (area method) -->
+  <xs:element name="elimination_steps" type="xs:integer" />
+  <!-- number of geometric steps (area method) -->
+  <xs:element name="geometrics_steps" type="xs:integer" />
+  <!-- number of algebraic steps (area method) -->
+  <xs:element name="algebraic_steps" type="xs:integer" />
+  <!-- number of terms in the largest polynomial (Wu’s, Groebner Basis methods) -->
+  <xs:element name="number_terms_largest_polynomial" type="xs:integer" />
+  
+  <!-- name (or IP) of the computer used in the proof-->
+  <xs:element name="computer_name" type="xs:string" />
+  <!-- model of the computer-->
+  <xs:element name="model" type="xs:string" />
+  <!--  type of the CPU-->
+  <xs:element name="CPU_type" type="xs:string" />
+  <!-- clock speed, in GHz -->
+  <xs:element name="clock_speed" type="xs:float" />
+  <!--  number of cores (cores and hyper-threading) -->
+  <xs:element name="number_cores" type="xs:integer" />
+  <!-- size of the computer’s RAM, in MiB -->
+  <xs:element name="RAM" type="xs:float" />
+  <!-- measures of velocity, in bogoMIPS -->
+  <xs:element name="bogoMIPS" type="xs:float" />
+  <!-- Operating system -->
+  <xs:element name="operating_system" type="xs:string" />
+  
+  
+  <!-- definition of complex elements -->
+  
+  <xs:element name="limits">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="time_limit_seconds" default="600"/>
+	<xs:element ref="space_limit_MiB" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="iterations limit" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  
+  <xs:element name="measures">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="CPU_time" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="RAM_spaced_used" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="elimination_steps" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="geometrics_steps" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="algebraic_steps" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="number_terms_largest_polynomial" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="platform">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="computer_name" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="model" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="CPU_type" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="clock_speed" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="number_cores" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="RAM" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="bogoMIPS" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="operating_system" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="proof_info">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="method" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="status" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="limits" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="measures" minOccurs="0" maxOccurs="1"/>
+	<xs:element ref="platform" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

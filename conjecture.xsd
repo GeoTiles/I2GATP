@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema 
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    xmlns:intergeo='http://svn.activemath.org/intergeo/Format/xml'
+    xmlns:i2gatp='http://hilbert.mat.uc.pt/I2GATP'
+    targetNamespace='http://hilbert.mat.uc.pt/I2GATP'
+    elementFormDefault='qualified'
+    >
+
+  <xs:import namespace="." 
+	     schemaLocation="intergeo.xsd"
+	     /> 
+  
+  <!-- i2gatp - conjecture.xsd --> 
+  <xs:annotation>
+    <xs:documentation xml:lang="en"> 
+      XML Schema for Conjectures. Part of I2GATP format.
+    </xs:documentation> 
+  </xs:annotation>  
+  
+  
+  <!-- definition of attributes -->
+  <xs:attribute name="conjName" type="xs:string"/>
+  
+  <!-- definition of complex elements -->
+  
+  <!-- equality between two algebraic expressions -->
+  <xs:element name="equalAlgebraicExpresssions">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="algebraicExpression" />
+	<xs:element ref="algebraicExpression" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- 
+       not,and,or
+       perpendicular 
+       collinear
+       congruent
+       parallel
+       
+       identical_points
+       midpoint 
+       same_length_segments
+       harmonic
+       same_measure_angle
+       segment\_ratio
+       signed\_area\_3
+       signed\_area\_4
+       pythagoras\_diff\_3
+       pythagoras\_diff\_4
+       
+       A and B belong to the same
+       circle arc CD
+       
+  -->
+  
+  <xs:element name="hypothesis">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="intergeo:elements" minOccurs="0"/>
+	<xs:element ref="intergeo:constraints" minOccurs="0"/>
+	<!-- constructions i2g(elements+constraints) + geometric statements ??? -->
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  
+  <xs:element name="ndg">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="intergeo:elements" minOccurs="0"/>
+	<xs:element ref="intergeo:constraints" minOccurs="0"/>
+	<!-- constructions i2g(elements+constraints) + geometric statements ??? -->
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  
+  <xs:element name="conclusion">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="intergeo:elements" minOccurs="0"/>
+	<xs:element ref="intergeo:constraints" minOccurs="0"/>
+	<!-- constructions i2g(elements+constraints) + geometric statements ??? -->
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  
+  
+  <!-- conjectures -->
+  <xs:element name="conjecture">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element ref="hypothesis" minOccurs="0"/>
+	<xs:element ref="ndg" minOccurs="0" />
+	<xs:element ref="conclusion"  minOccurs="1"/>     
+      </xs:sequence>
+      <xs:attribute ref="conjName" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  
+</xs:schema>

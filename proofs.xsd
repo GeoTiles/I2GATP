@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:i2gatp="http://hilbert.mat.uc.pt/TGTP/I2GATP"
+    targetNamespace="http://hilbert.mat.uc.pt/TGTP/I2GATP"
+    elementFormDefault="qualified">
+  
+  <!-- i2gatp - proofs.xsd --> 
+
+  <!-- 
+       para já este ficheiro é só um pensar alto.
+       
+       Poder-se-ia ter um ficheiro de topo que depois fizesse a
+       incorporação dos diferentes proofInfo.xml através de um mecanismo
+       de inclusão.
+       
+       Algo como: 
+       proofs.xml
+       proofGCLC_9.0_AreaMethod/proofInfo.xml
+       proofGCLC_9.0_WuMethod/proofInfo.xml
+       
+  -->    
+
+  <!-- proofInfo shema -->
+  <xs:import schemaLocation="proofInfo.xsd" /> 
+
+  
+    <xs:annotation>
+    <xs:documentation xml:lang="en"> 
+      XML Schema for Proofs Informations. Part of I2GATP format.
+    </xs:documentation> 
+  </xs:annotation>  
+  <!-- proofs - list of proof_info -->
+  <xs:element name="proofs">
+    <xs:complexType>
+      <xs:element ref="proof_info"  minOccurs="0" maxOccurs="unbounded"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
